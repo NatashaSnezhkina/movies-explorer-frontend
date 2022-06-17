@@ -1,0 +1,16 @@
+.navigation-popup__link {
+  text-decoration: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+
+  color: #000000;
+  margin: 0 0 28px 0;
+}
+
+.navigation-popup__link:last-of-type {
+  margin: 0;
+}

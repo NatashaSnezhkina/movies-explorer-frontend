@@ -1,0 +1,8 @@
+.register {
+  /* height: 100vh; */
+  width: 396px;
+  display: flex;
+  flex-direction: column;
+  padding: 70px 0;
+  margin: 0 auto;
+}

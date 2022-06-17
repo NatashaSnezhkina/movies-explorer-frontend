@@ -1,0 +1,10 @@
+.promo {
+  background-color: #073042;
+  position: relative;
+  min-height: 524px;
+  height: calc(100vh - 140px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}

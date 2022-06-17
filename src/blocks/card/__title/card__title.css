@@ -1,0 +1,10 @@
+.card__title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}

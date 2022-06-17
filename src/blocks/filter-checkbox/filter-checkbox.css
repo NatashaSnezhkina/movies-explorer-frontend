@@ -1,0 +1,12 @@
+.filter-checkbox {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 0 41px;
+  align-items: center;
+}
+
+@media screen and (max-width: 950px) {
+  .filter-checkbox {
+    margin: 38px auto 0 auto;
+  }
+}

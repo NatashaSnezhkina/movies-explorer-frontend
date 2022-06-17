@@ -1,0 +1,28 @@
+.navigation__enter {
+  all: unset;
+  width: 76px;
+  height: 32px;
+  background: #2BE080;
+  border-radius: 3px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 32px;
+  color: #000000;
+  padding: 0;
+  margin: 0 0 0 30px;
+  text-align: center;
+  align-self: center;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .navigation__enter {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 16px;
+    margin: 0 0 0 14px;
+  }
+}

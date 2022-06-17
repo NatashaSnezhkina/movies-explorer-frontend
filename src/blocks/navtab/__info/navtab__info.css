@@ -1,0 +1,6 @@
+.navtab__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 66px;
+}

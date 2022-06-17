@@ -1,0 +1,16 @@
+.search-form__button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  background-image: url(../../../images/search.svg);
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 17px;
+  background-color: none;
+  margin-left: -41px;
+}

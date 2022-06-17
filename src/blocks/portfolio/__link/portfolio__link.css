@@ -1,0 +1,23 @@
+.portfolio__link {
+  text-decoration: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  color: #000000;
+  margin: 0 0 19px 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .portfolio__link {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .portfolio__link {
+    font-size: 17px;
+    line-height: 28px;
+  }
+}

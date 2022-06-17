@@ -1,0 +1,11 @@
+.navigation-popup__close-button {
+  width: 31px;
+  height: 31px;
+  background-image: url(../../../images/closeButton.svg);
+  background-size: contain;
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  z-index: 7;
+}

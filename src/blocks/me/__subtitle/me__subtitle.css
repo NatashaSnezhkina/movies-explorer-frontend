@@ -1,0 +1,25 @@
+.me__subtitle {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #111111;
+  margin: 0 0 26px 0;
+  text-align: left;
+}
+
+@media screen and (max-width: 1000px) {
+  .me__subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .me__subtitle {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
