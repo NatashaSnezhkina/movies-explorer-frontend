@@ -1,12 +1,21 @@
 .navtab__element {
   all: unset;
+  width: 100px;
+  height: 32px;
+  display: flex;
+  border: none;
+  cursor: pointer;
+  background-color: #E8E8E8;
+  border-radius: 20px;
+  justify-content: center;
+
+  text-decoration: none;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  font-size: 13px;
-  line-height: 16px;
-  color: #FFFFFF;
-  text-decoration: underline;
+  font-size: 14px;
+  line-height: 32px;
+  color: #000000;
   margin: 0 40px 0 0;
 }
 

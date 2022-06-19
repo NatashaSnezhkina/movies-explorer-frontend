@@ -1,12 +1,22 @@
 .filter-checkbox {
   display: flex;
   flex-direction: row;
-  margin: 0 0 0 41px;
+  margin: 0 30px 0 0;
   align-items: center;
+  background: url(../../images/line.svg) left no-repeat;
+  background-size: 1px 40px;
+  background-color: inherit;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 770px) {
   .filter-checkbox {
-    margin: 38px auto 0 auto;
+    margin: 0 20px 0 0;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .filter-checkbox {
+    margin: 46px auto 0 auto;
+    background: none;
   }
 }

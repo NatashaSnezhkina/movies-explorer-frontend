@@ -3,17 +3,24 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 18px;
+  line-height: 20px;
   color: #A0A0A0;
   height: 48px;
-  border: 1px solid #E8E8E8;
-  border-radius: 24px;
-  padding: 0 0 0 22px;
-  max-width: 932px;
-  width: 100%;
+  padding: 0 0 0 63px;
+  /* width: calc(100% - 35px); */
+  max-width: 200px;
+  background: url(../../../images/searchFilms.svg) no-repeat 19px;
+  background-color: #F4F4F4;
 }
 
 .search-form__input:focus {
   outline: none;
+}
+
+@media screen and (max-width: 760px) {
+  .search-form__input {
+    background: none;
+    padding: 0 0 0 19px;
+  }
 }

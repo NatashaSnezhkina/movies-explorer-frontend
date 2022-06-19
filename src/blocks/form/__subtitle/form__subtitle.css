@@ -9,3 +9,10 @@
 
   color: #A0A0A0;
 }
+
+@media screen and (max-width: 500px) {
+  .form__subtitle {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

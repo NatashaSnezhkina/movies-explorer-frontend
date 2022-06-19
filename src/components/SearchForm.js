@@ -1,12 +1,13 @@
 import React from 'react';
 import FilterCheckbox from './FilterCheckbox';
+// import searchFilm from '../images/searchFilms.svg';
 
 function SearchForm() {
   return (
     <div className='search-form'>
       <div className='search-form__container'>
         <div className='search-form__search-line'>
-          <input className='search-form__input' type='text' defaultValue='Фильм'></input>
+          <input className='search-form__input' type='text' placeholder="Фильм" maxLength='30'></input>
           <button className='search-form__button'></button>
         </div>
         <FilterCheckbox />

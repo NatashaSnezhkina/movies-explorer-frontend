@@ -1,10 +1,10 @@
 import React from 'react';
 
 function FilterCheckbox() {
-  return(
+  return (
     <div className='filter-checkbox'>
-      <p className='filter-checkbox__name'>Короткометражки</p>
       <button className='filter-checkbox__button'></button>
+      <p className='filter-checkbox__name'>Короткометражки</p>
     </div>
   );
 }

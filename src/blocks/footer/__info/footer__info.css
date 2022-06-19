@@ -3,3 +3,10 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 500px) {
+  .footer__info {
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+}

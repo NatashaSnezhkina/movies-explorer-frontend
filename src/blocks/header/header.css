@@ -2,16 +2,16 @@
   height: 74px;
   max-width: 1280px;
   justify-self: center;
-  background-color: #073042;
+  background-color: #FAFAFA;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 70px 0 60px;
+  padding: 0 70px 0 70px;
   margin: 0;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 760px) {
   .header {
     padding: 0 30px;
   }

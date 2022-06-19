@@ -22,16 +22,16 @@ function Navigation({
       {
         isLoggedIn === false
           ?
-          <section className='navigation'>
+          <section className='navigation navigation_logged-out'>
+            {/* <div className='navigation__links'> */}
+              <Link to="/signup" className='navigation__registration'>
+                Регистрация
+              </Link>
 
-            <Link to="/signup" className='navigation__registration'>
-              Регистрация
-            </Link>
-
-            <Link to="/signin" className='navigation__enter'>
-              Войти
-            </Link>
-
+              <Link to="/signin" className='navigation__enter'>
+                Войти
+              </Link>
+            {/* </div> */}
           </section >
 
           : isNavigationMenu === true ?
@@ -44,20 +44,19 @@ function Navigation({
             </>
             :
             <div div className='navigation'>
+              <div className='navigation__movies'>
+                <Link to="/movies" className='navigation__films'>
+                  Фильмы
+                </Link>
 
-              <Link to="/movies" className='navigation__films'>
-                Фильмы
-              </Link>
-
-              <Link to="/saved-movies" className='navigation__saved-films'>
-                Сохранённые фильмы
-              </Link>
+                <Link to="/saved-movies" className='navigation__saved-films'>
+                  Сохранённые фильмы
+                </Link>
+              </div>
 
               <Link to="/profile" className='navigation__account-link'>
                 Аккаунт
               </Link>
-
-              <Link to="/profile" className='navigation__account-photo'></Link>
 
             </div>
       }
