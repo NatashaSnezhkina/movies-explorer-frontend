@@ -1,0 +1,16 @@
+.form__link {
+  text-decoration: none;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #3456F3;
+}
+
+@media screen and (max-width: 500px) {
+  .form__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

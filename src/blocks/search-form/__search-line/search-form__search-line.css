@@ -1,0 +1,24 @@
+.search-form__search-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 72px;
+  align-items: center;
+  margin: 0 30px 0 0;
+  padding: 0;
+  width: 100%;
+  background-color: #F4F4F4;
+  border-radius: 9px;
+}
+
+@media screen and (max-width: 770px) {
+  .search-form__search-line {
+    margin: 0 19px 0 0;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .search-form__search-line {
+    margin: 0;
+  }
+}

@@ -1,0 +1,18 @@
+.me {
+  padding: 110px 70px;
+  background-color: #FAFAFA;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 1000px) {
+  .me {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .me {
+    padding: 70px 14px;
+  }
+}

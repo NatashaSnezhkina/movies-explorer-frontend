@@ -1,0 +1,19 @@
+.techs {
+  padding: 100px 70px;
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 830px) {
+  .techs {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .techs {
+    padding: 70px 18px;
+    background-color: #FAFAFA;
+  }
+}

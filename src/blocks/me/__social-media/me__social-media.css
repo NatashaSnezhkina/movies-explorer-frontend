@@ -1,0 +1,12 @@
+.me__social-media {
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  column-gap: 20px;
+  margin: 0 0 101px 0;
+}
+
+@media screen and (max-width: 600px) {
+  .me__social-media {
+    margin-bottom: 69px;
+  }
+}

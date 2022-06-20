@@ -1,0 +1,13 @@
+.navigation__films {
+  all: unset;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 32px;
+  text-align: right;
+  color: #000000;
+  margin: 0 20px 0 0;
+  align-self: center;
+  cursor: pointer;
+}

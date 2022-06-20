@@ -1,0 +1,19 @@
+.me__about {
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #111111;
+  margin: 0 0 99px 0;
+  text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+  .me__about {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+}
