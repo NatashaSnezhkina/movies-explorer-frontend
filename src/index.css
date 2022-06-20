@@ -12,6 +12,7 @@
 @import url(./blocks/about/__timeline-part/about__timeline-part.css);
 @import url(./blocks/button/button.css);
 @import url(./blocks/card/card.css);
+@import url(./blocks/card/__delete/card__delete.css);
 @import url(./blocks/card/__duration/card__duration.css);
 @import url(./blocks/card/__image/card__image.css);
 @import url(./blocks/card/__info/card__info.css);
@@ -59,7 +60,6 @@
 @import url(./blocks/navigation/__button/navigation__button.css);
 @import url(./blocks/navigation/__enter/navigation__enter.css);
 @import url(./blocks/navigation/__films/navigation__films.css);
-@import url(./blocks/navigation/__links/navigation__links.css);
 @import url(./blocks/navigation/__movies/navigation__movies.css);
 @import url(./blocks/navigation/__registration/navigation__registration.css);
 @import url(./blocks/navigation/__saved-films/navigation__saved-films.css);

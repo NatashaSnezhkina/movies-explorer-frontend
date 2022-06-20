@@ -10,7 +10,7 @@ import NavTab from './NavTab';
 
 function Main() {
   return (
-    <div>
+    <section>
       <Header
         isLoggedIn={false}
       />
@@ -21,7 +21,7 @@ function Main() {
       <AboutMe />
       <Portfolio />
       <Footer />
-    </div>
+    </section>
   )
 }
 

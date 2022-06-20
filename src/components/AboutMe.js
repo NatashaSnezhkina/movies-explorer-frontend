@@ -3,7 +3,7 @@ import myPhoto from '../images/myPhoto.jpg';
 
 function AboutMe() {
   return (
-    <div className='me'>
+    <section className='me'>
       <h3 className='title'>Студентка</h3>
       <div className='line'></div>
       <div className='me__info'>
@@ -18,13 +18,13 @@ function AboutMe() {
             Читаю документацию, статьи на Хабр, гуглю и смотрю разные видео на YouTube.
             А еще, я совмещаю работу с учебой с 18 лет, поэтому умею быстро и качественно выполнять задачи.</p>
           <div className='me__social-media'>
-            <a className='me__link' href='https://www.linkedin.com/in/natalia-snezhkina/'>LinkedIn</a>
-            <a className='me__link' href='https://github.com/NatashaSnezhkina'>GitHub</a>
+            <a className='me__link' href='https://www.linkedin.com/in/natalia-snezhkina/' target="_blank">LinkedIn</a>
+            <a className='me__link' href='https://github.com/NatashaSnezhkina' target="_blank">GitHub</a>
           </div>
         </div>
         <img className='me__photo' src={myPhoto} alt='My_photo'></img>
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -6,10 +6,10 @@ function SearchForm() {
   return (
     <div className='search-form'>
       <div className='search-form__container'>
-        <div className='search-form__search-line'>
+        <form className='search-form__search-line'>
           <input className='search-form__input' type='text' placeholder="Фильм" maxLength='30'></input>
           <button className='search-form__button'></button>
-        </div>
+        </form>
         <FilterCheckbox />
       </div>
       <div className='line search-form__line'></div>

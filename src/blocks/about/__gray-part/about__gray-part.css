@@ -1,13 +1,13 @@
 .about__gray-part {
   height: 36px;
   background: #F2F2F2;
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 36px;
   text-align: center;
-  color: #FFFFFF;
+  color: #000000;
   margin: 0;
 }
 

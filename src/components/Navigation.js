@@ -23,15 +23,13 @@ function Navigation({
         isLoggedIn === false
           ?
           <section className='navigation navigation_logged-out'>
-            {/* <div className='navigation__links'> */}
-              <Link to="/signup" className='navigation__registration'>
-                Регистрация
-              </Link>
+            <Link to="/signup" className='navigation__registration'>
+              Регистрация
+            </Link>
 
-              <Link to="/signin" className='navigation__enter'>
-                Войти
-              </Link>
-            {/* </div> */}
+            <Link to="/signin" className='navigation__enter'>
+              Войти
+            </Link>
           </section >
 
           : isNavigationMenu === true ?
@@ -54,8 +52,8 @@ function Navigation({
                 </Link>
               </div>
 
-              <Link to="/profile" className='navigation__account-link'>
-                Аккаунт
+              <Link to="/profile">
+                <button className='navigation__account-link'> Аккаунт</button>
               </Link>
 
             </div>

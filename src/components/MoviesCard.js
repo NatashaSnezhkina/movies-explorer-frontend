@@ -12,7 +12,12 @@ function MoviesCard({
           <h3 className='card__title'>33 слова о дизайне</h3>
           <p className='card__duration'>1ч42м</p>
         </div>
-        <button className={`${isLiked === true ? 'card__like_active' : isSaved === true ? 'button' : 'card__like'}`}></button>
+        {
+          isSaved === false ?
+            <button className={`${isLiked === true ? 'card__like_active' : 'card__like'}`}></button>
+            :
+            <button className='card__delete'></button>
+        }
       </div>
       <img className='card__image' src={film} alt='film'></img>
     </div >

@@ -5,7 +5,8 @@ import Footer from './Footer';
 import Header from './Header';
 
 function SavedMovies({
-  savedMovies
+  savedMovies,
+  isSaved
 }) {
   return (
     <div>
@@ -15,6 +16,7 @@ function SavedMovies({
       <SearchForm />
       <MoviesCardList
         moviesCardList={savedMovies}
+        isSaved={isSaved}
       />
       <Footer />
     </div>

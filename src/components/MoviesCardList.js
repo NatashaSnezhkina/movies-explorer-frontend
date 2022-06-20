@@ -2,7 +2,8 @@ import React from 'react';
 import MoviesCard from './MoviesCard';
 
 function MoviesCardList({
-  moviesCardList
+  moviesCardList,
+  isSaved
 }) {
   return (
     <div className='card-list'>
@@ -11,6 +12,7 @@ function MoviesCardList({
           <MoviesCard
             key={card.id}
             isLiked={card.isLiked}
+            isSaved={isSaved}
           />
         );
       })

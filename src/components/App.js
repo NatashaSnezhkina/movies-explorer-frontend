@@ -40,6 +40,7 @@ function App() {
           element={
             <SavedMovies
               savedMovies={savedMovies}
+              isSaved={true}
             />
           }
         />
