@@ -25,6 +25,7 @@
 @import url(./blocks/error/error.css);
 @import url(./blocks/filter-checkbox/filter-checkbox.css);
 @import url(./blocks/filter-checkbox/__button/filter-checkbox__button.css);
+@import url(./blocks/filter-checkbox/__button/_active/filter-checkbox__button_active.css);
 @import url(./blocks/filter-checkbox/__name/filter-checkbox__name.css);
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);

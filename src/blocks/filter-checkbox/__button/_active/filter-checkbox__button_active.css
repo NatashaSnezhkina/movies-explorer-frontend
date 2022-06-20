@@ -1,5 +1,5 @@
-.filter-checkbox__button {
-  background-image: url(../../../images/smalltumbOff.svg);
+.filter-checkbox__button_active {
+  background-image: url(../../../../images/smalltumb.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
