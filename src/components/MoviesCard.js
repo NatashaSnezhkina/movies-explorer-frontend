@@ -3,14 +3,16 @@ import film from '../images/film.png';
 
 function MoviesCard({
   isLiked,
-  isSaved
+  isSaved,
+  card
 }) {
+  const movieDuration = `${Math.trunc(card.duration / 60)}ч ${card.duration % 60}м`
   return (
     <div className='card'>
       <div className='card__info'>
         <div className='card__text'>
-          <h3 className='card__title'>33 слова о дизайне</h3>
-          <p className='card__duration'>1ч42м</p>
+          <h3 className='card__title'>{card.nameRU}</h3>
+          <p className='card__duration'>{movieDuration}</p>
         </div>
         {
           isSaved === false ?
@@ -19,7 +21,7 @@ function MoviesCard({
             <button className='card__delete'></button>
         }
       </div>
-      <img className='card__image' src={film} alt='film'></img>
+      <img className='card__image' src={`https://api.nomoreparties.co${card.image.url}`} alt={card.image.name}></img>
     </div >
   );
 }

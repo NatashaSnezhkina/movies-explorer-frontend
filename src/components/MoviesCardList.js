@@ -11,6 +11,7 @@ function MoviesCardList({
         return (
           <MoviesCard
             key={card.id}
+            card={card}
             isLiked={card.isLiked}
             isSaved={isSaved}
           />

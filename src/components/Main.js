@@ -8,11 +8,13 @@ import Footer from './Footer';
 import Header from './Header';
 import NavTab from './NavTab';
 
-function Main() {
+function Main({
+  isLoggedInn
+}) {
   return (
     <section>
       <Header
-        isLoggedIn={false}
+        isLoggedIn={isLoggedInn}
       />
       <Promo />
       <NavTab />

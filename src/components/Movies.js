@@ -1,87 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchForm from './SearchForm';
 import MoviesCardList from './MoviesCardList';
 import Footer from './Footer';
 import Header from './Header';
 
-function Movies() {
-  const moviesCardList = [
-    {
-      isLiked: true,
-      id: 1
-    },
-    {
-      isLiked: true,
-      id: 2
-    },
-    {
-      isLiked: false,
-      id: 3
-    },
-    {
-      isLiked: true,
-      id: 4
-    },
-    {
-      isLiked: true,
-      id: 5
-    },
-    {
-      isLiked: false,
-      id: 6
-    },
-    {
-      isLiked: true,
-      id: 7
-    },
-    {
-      isLiked: true,
-      id: 8
-    },
-    {
-      isLiked: false,
-      id: 9
-    },
-    {
-      isLiked: true,
-      id: 10
-    },
-    {
-      isLiked: true,
-      id: 11
-    },
-    {
-      isLiked: false,
-      id: 12
-    },
-    {
-      isLiked: false,
-      id: 13
-    },
-    {
-      isLiked: true,
-      id: 14
-    },
-    {
-      isLiked: true,
-      id: 15
-    },
-    {
-      isLiked: false,
-      id: 16
+function Movies({
+  movies,
+  handleSearchMovies
+}) {
+
+  const [numberOfMovies, setNumberOfMovies] = useState(() => {
+    if (window.innerWidth > 1250) {
+      return 12;
+    } else if (window.innerWidth > 760) {
+      return 8;
+    } else {
+      return 5;
     }
-  ]
+  });
+
+  const [numberOfAddMovies, setNumberOfAddMovies] = useState(() => {
+    if (window.innerWidth > 1250) {
+      return 3;
+    } else if (window.innerWidth > 760) {
+      return 2;
+    } else {
+      return 2;
+    }
+  });
+
+  const moviesCardList = movies.slice(0, numberOfMovies);
+
+  function addMoreMovies() {
+    setNumberOfMovies(numberOfMovies + numberOfAddMovies);
+  }
+
+  function screenChanging() {
+    if (window.innerWidth > 1250) {
+      setNumberOfMovies(12);
+      setNumberOfAddMovies(3);
+    } else if (window.innerWidth > 760) {
+      setNumberOfMovies(8);
+      setNumberOfAddMovies(2);
+    } else {
+      setNumberOfMovies(5);
+      setNumberOfAddMovies(2);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', screenChanging)
+  })
 
   return (
     <div>
       <Header
         isLoggedIn={true}
       />
-      <SearchForm />
+      <SearchForm
+        handleSearchMovies={handleSearchMovies}
+      />
       <MoviesCardList
         moviesCardList={moviesCardList}
+        isSaved={false}
       />
-      <div className='more-button'>Ещё</div>
+      <div className='more-button' onClick={addMoreMovies}>Ещё</div>
       <Footer />
     </div>
   );
