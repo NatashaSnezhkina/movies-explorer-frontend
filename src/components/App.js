@@ -27,9 +27,9 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
-    const movies = JSON.parse(localStorage.getItem('movies'));
+    // const movies = JSON.parse(localStorage.getItem('movies'));
 
-    setMoviesOnPage(movies);
+    // setMoviesOnPage(movies);
 
     if (token) {
       Auth.getContent(token)
@@ -117,6 +117,9 @@ function App() {
   function signOut() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('movies');
+    localStorage.removeItem('searchText');
+    localStorage.removeItem('filterCheckbox');
+    localStorage.removeItem('savedMovies');
     setLoggedInn(false);
     navigate('/login');
   }
@@ -159,16 +162,18 @@ function App() {
 
   function handleFilterMovies(isFiltered) {
     const filteredMovies = moviesOnPage.filter((movie) => movie.duration <= 40);
+    console.log(moviesOnPage);
     setMoviesOnPage(filteredMovies);
-    localStorage.setItem('movies', JSON.stringify(filteredMovies));
+    // localStorage.setItem('movies', JSON.stringify(filteredMovies));
     localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
     console.log(isFiltered);
   }
 
   function handleUnfilterMovies(isFiltered) {
-    setMoviesOnPage(movies);
+    const moviesFromStorage = JSON.parse(localStorage.getItem('movies'));
+    setMoviesOnPage(moviesFromStorage);
     localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
-    localStorage.setItem('movies', JSON.stringify(movies));
+    localStorage.setItem('movies', JSON.stringify(moviesFromStorage));
     console.log(isFiltered);
   }
 

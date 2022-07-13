@@ -5,7 +5,7 @@ import Footer from './Footer';
 import Header from './Header';
 
 function Movies({
-  movies,
+  // movies,
   saveMovie,
   deleteMovie,
   savedMovies,
@@ -14,6 +14,10 @@ function Movies({
   handleSearchMovies,
   isLoading
 }) {
+
+  const movies = JSON.parse(localStorage.getItem('movies'));
+
+  console.log(movies);
 
   const [numberOfMovies, setNumberOfMovies] = useState(() => {
     if (window.innerWidth > 1250) {
