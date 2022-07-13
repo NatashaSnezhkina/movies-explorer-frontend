@@ -4,7 +4,7 @@ import NavigationPopup from './NavigationPopup';
 
 function Navigation({
   isLoggedIn,
-  isNavigationMenu
+  isNavigationMenu,
 }) {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);

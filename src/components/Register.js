@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../images/logo.svg';
 import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
@@ -63,9 +63,9 @@ function Register({
         />
         <span className='error'>{errors.password}</span>
 
-        <button className='form__button'>Зарегистрироваться</button>
+        <button className={`form__button ${isValid===true ? '' : 'form__button_disable'}`} disabled={!isValid}>Зарегистрироваться</button>
       </form>
-      <p className="form__subtitle">Уже зарегистрированы? <a className='form__link' href="#">Войти</a></p>
+      <p className="form__subtitle">Уже зарегистрированы? <Link to='/signin' className='form__link' href="#">Войти</Link></p>
     </section>
   );
 }

@@ -4,7 +4,7 @@ import Navigation from './Navigation';
 import { Link } from 'react-router-dom';
 
 function Header({
-  isLoggedIn
+  isLoggedIn,
 }) {
 
   return (

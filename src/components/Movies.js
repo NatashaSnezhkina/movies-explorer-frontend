@@ -6,7 +6,13 @@ import Header from './Header';
 
 function Movies({
   movies,
-  handleSearchMovies
+  saveMovie,
+  deleteMovie,
+  savedMovies,
+  handleFilterMovies,
+  handleUnfilterMovies,
+  handleSearchMovies,
+  isLoading
 }) {
 
   const [numberOfMovies, setNumberOfMovies] = useState(() => {
@@ -58,13 +64,25 @@ function Movies({
         isLoggedIn={true}
       />
       <SearchForm
+        handleFilterMovies={handleFilterMovies}
+        handleUnfilterMovies={handleUnfilterMovies}
         handleSearchMovies={handleSearchMovies}
       />
       <MoviesCardList
         moviesCardList={moviesCardList}
         isSaved={false}
+        saveMovie={saveMovie}
+        deleteMovie={deleteMovie}
+        savedMovies={savedMovies}
+        isLoading={isLoading}
       />
-      <div className='more-button' onClick={addMoreMovies}>Ещё</div>
+      <div className={`${movies.length > 1
+        ? movies.length > numberOfMovies
+          ? 'more-button'
+          : 'more-button_hide'
+        : 'more-button_hide'}`}
+        onClick={addMoreMovies}>
+        Ещё</div>
       <Footer />
     </div>
   );

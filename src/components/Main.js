@@ -9,7 +9,7 @@ import Header from './Header';
 import NavTab from './NavTab';
 
 function Main({
-  isLoggedInn
+  isLoggedInn,
 }) {
   return (
     <section>

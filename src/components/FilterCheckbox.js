@@ -1,16 +1,37 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 
-function FilterCheckbox() {
-  
-  const [isClicked, setIsClicked] = useState(false);
+function FilterCheckbox({
+  handleFilterMovies,
+  handleUnfilterMovies
+}) {
 
-  function handleClick() {
-    setIsClicked(true);
+  // const [isClicked, setIsClicked] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(false);
+
+  function filterFilm() {
+    if (isFiltered === false) {
+      setIsFiltered(true);
+      handleFilterMovies(true);
+    } else {
+      setIsFiltered(false);
+      handleUnfilterMovies(false);
+    }
   }
+
+  useEffect(() => {
+    const checkboxStatus = JSON.parse(localStorage.getItem('filterCheckbox'));
+    console.log(checkboxStatus);
+    setIsFiltered(checkboxStatus);
+  }, [])
 
   return (
     <div className='filter-checkbox'>
-      <button className={`${isClicked === true ? 'filter-checkbox__button_active' : 'filter-checkbox__button'}`} onClick={handleClick}></button>
+      <button
+        className={`${isFiltered === true
+          ? 'filter-checkbox__button_active'
+          : 'filter-checkbox__button'}`}
+        onClick={filterFilm}>
+      </button>
       <p className='filter-checkbox__name'>Короткометражки</p>
     </div>
   );

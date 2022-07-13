@@ -1,19 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MoviesCard from './MoviesCard';
+import Preloader from './Preloader';
 
 function MoviesCardList({
   moviesCardList,
-  isSaved
+  isSaved,
+  saveMovie,
+  deleteMovie,
+  savedMovies,
+  isLoading
 }) {
+
   return (
     <div className='card-list'>
-      {moviesCardList.map((card) => {
+      <Preloader 
+        isLoading={isLoading}
+      />
+      {moviesCardList.map((movie) => {
         return (
           <MoviesCard
-            key={card.id}
-            card={card}
-            isLiked={card.isLiked}
+            key={movie.id || movie.movieId}
+            movie={movie}
             isSaved={isSaved}
+            saveMovie={saveMovie}
+            deleteMovie={deleteMovie}
+            savedMovies={savedMovies}
           />
         );
       })

@@ -6,17 +6,30 @@ import Header from './Header';
 
 function SavedMovies({
   savedMovies,
-  isSaved
+  isSaved,
+  deleteMovie,
+  handleFilterMovies,
+  handleUnfilterMovies,
+  handleSearchSavedMovies,
+  isLoading
 }) {
+
   return (
     <div>
       <Header
         isLoggedIn={true}
       />
-      <SearchForm />
+      <SearchForm
+        handleFilterMovies={handleFilterMovies}
+        handleUnfilterMovies={handleUnfilterMovies}
+        handleSearchMovies={handleSearchSavedMovies}
+      />
       <MoviesCardList
         moviesCardList={savedMovies}
         isSaved={isSaved}
+        deleteMovie={deleteMovie}
+        savedMovies={savedMovies}
+        isLoading={isLoading}
       />
       <Footer />
     </div>

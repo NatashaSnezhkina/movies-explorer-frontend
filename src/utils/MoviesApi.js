@@ -3,12 +3,20 @@ class MoviesApi {
     this._address = address;
   }
 
+  _responseProcessing() {
+    return (res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка ${res.status}`)
+    })
+  }
+
   getMovies() {
     return fetch(`${this._address}/beatfilm-movies`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${this._token}`
       }
     })
       .then(res => {
@@ -19,6 +27,7 @@ class MoviesApi {
 
       })
   }
+
 }
 
 const moviesApi = new MoviesApi({

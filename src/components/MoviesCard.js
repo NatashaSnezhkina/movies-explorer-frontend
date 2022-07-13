@@ -1,27 +1,60 @@
-import React from 'react';
-import film from '../images/film.png';
+import React, { useState } from 'react';
 
 function MoviesCard({
-  isLiked,
   isSaved,
-  card
+  movie,
+  saveMovie,
+  deleteMovie,
+  savedMovies
 }) {
-  const movieDuration = `${Math.trunc(card.duration / 60)}ч ${card.duration % 60}м`
+  // console.log(movie)
+
+  const movieDuration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}м`;
+  const likedMovieFind = savedMovies.find((item) => item.nameRU === movie.nameRU);
+
+  const [isLiked, setIsLiked] = useState(likedMovieFind ? true : false);
+
+  function likeCard(e) {
+    if (isLiked) {
+      const searchMovie = savedMovies.find((item) => item.nameRU === movie.nameRU);
+      // console.log(searchMovie);
+      // console.log(savedMovies);
+      deleteMovie(searchMovie._id);
+      setIsLiked(false);
+    } else {
+      saveMovie(movie);
+      setIsLiked(true);
+    }
+  }
+
+  function handleDeleteMovie(e) {
+    deleteMovie(movie._id);
+  }
+
   return (
     <div className='card'>
       <div className='card__info'>
         <div className='card__text'>
-          <h3 className='card__title'>{card.nameRU}</h3>
+          <h3 className='card__title'>{movie.nameRU}</h3>
           <p className='card__duration'>{movieDuration}</p>
         </div>
         {
           isSaved === false ?
-            <button className={`${isLiked === true ? 'card__like_active' : 'card__like'}`}></button>
+            <button
+              className={`${isLiked === true ? 'card__like_active' : 'card__like'}`}
+              onClick={likeCard}
+            >
+            </button>
             :
-            <button className='card__delete'></button>
+            <button className='card__delete'
+              onClick={handleDeleteMovie}>
+            </button>
         }
       </div>
-      <img className='card__image' src={`https://api.nomoreparties.co${card.image.url}`} alt={card.image.name}></img>
+      <img className='card__image'
+        src={isSaved === false ? `https://api.nomoreparties.co${movie.image.url}` : movie.image}
+        alt={movie.nameRU}
+      ></img>
     </div >
   );
 }

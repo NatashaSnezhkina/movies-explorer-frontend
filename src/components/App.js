@@ -8,41 +8,36 @@ import Login from './Login';
 import Profile from './Profile';
 import SavedMovies from './SavedMovies';
 import NotFound from './NotFound';
-import moviesApi from '../utils/MoviesApi';
 import * as Auth from '../utils/Auth';
 import mainApi from '../utils/MainApi';
+import moviesApi from '../utils/MoviesApi';
+import { CurrentUserContext } from '../context/CurrentUserContext';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
-  const savedMovies = [
-    {
-      id: 1
-    },
-    {
-      id: 2
-    },
-    {
-      id: 3
-    }
-  ];
-
   const [movies, setMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [moviesOnPage, setMoviesOnPage] = useState([]);
   const [isLoggedInn, setLoggedInn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMoviesOnPage, setSavedMoviesOnPage] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
+    const movies = JSON.parse(localStorage.getItem('movies'));
+
+    setMoviesOnPage(movies);
+
     if (token) {
       Auth.getContent(token)
         .then((res) => {
+          setCurrentUser(res);
           setLoggedInn(true);
-          console.log("I have just changed loggedInn to TRUE:", isLoggedInn);
         })
         .catch(err => {
-          setIsSuccess(false);
           console.log(err);
           if (err.status === 401) {
             console.log('401 — Токен не передан или передан не в том формате');
@@ -55,42 +50,43 @@ function App() {
   useEffect(() => {
     if (isLoggedInn === true) {
       mainApi.setToken(localStorage.getItem('jwt'));
-      moviesApi.getMovies()
+      mainApi.getProfileInfo()
         .then((currentUser) => {
           setCurrentUser(currentUser);
         })
         .catch(err => {
           console.log(err);
         })
+
       moviesApi.getMovies()
         .then((res) => {
-          setMovies(
-            res
-          )
+          setMovies(res);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
+      mainApi.getSavedMovies()
+        .then((res) => {
+          const newSavedMovies = res.data.filter((m) => m.owner === currentUser._id);
+          // console.log(newSavedMovies);
+          setSavedMoviesOnPage(newSavedMovies);
+          setSavedMovies(newSavedMovies);
         })
         .catch(err => {
           console.log(err);
         })
 
     }
-  }, [])
-
-  useEffect(() => {
-    moviesApi.getMovies()
-      .then((res) => {
-        setMovies(res);
-      })
-  }, [])
+  }, [isLoggedInn])
 
   function handleRegister({ name, email, password }) {
     Auth.register({ name, email, password })
       .then(() => {
-        setIsSuccess(true);
         navigate('/signin');
         handleLogin({ email, password })
       })
       .catch((err) => {
-        setIsSuccess(false);
         if (err.status === 400) {
           console.log('400 - некорректно заполнено одно из полей');
         }
@@ -102,6 +98,7 @@ function App() {
       .then((data) => {
         Auth.getContent(data.token)
           .then((res) => {
+
             mainApi.setToken(data.token);
             setLoggedInn(true);
             navigate('/');
@@ -109,7 +106,6 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setIsSuccess(false);
         if (err.status === 400) {
           console.log('400 - не передано одно из полей');
         } else if (err.status === 401) {
@@ -118,75 +114,162 @@ function App() {
       });
   }
 
-  function handleSearchMovies(text) {
-    const findedMovies = searchMovies(movies, text);
-    setFilteredMovies(findedMovies);
+  function signOut() {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('movies');
+    setLoggedInn(false);
+    navigate('/login');
   }
 
-  function searchMovies(moviesList, searchText) {
-    let allMovies = [];
-    moviesList.filter((movie) => {
-      if (movie.nameRu.contains(searchText)) {
-        allMovies.push(movie);
-      }
-    })
-    return allMovies;
+  function changeUserInfo({ name, email }) {
+    mainApi.editProfileInfo({ name, email })
+      .then((user) => {
+        setCurrentUser({ name: user.name, email: user.email })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  function saveMovie(movie) {
+    mainApi.saveMovie(movie)
+      .then((res) => {
+        setSavedMoviesOnPage([res, ...savedMoviesOnPage]);
+        setSavedMovies([res, ...savedMovies]);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  function deleteMovie(movieId) {
+    console.log(movieId)
+    mainApi.deleteMovie(movieId)
+      .then(() => {
+        const newSavedMovies = savedMovies.filter((m) => {
+          return m._id !== movieId;
+        });
+        setSavedMovies(newSavedMovies);
+        setSavedMoviesOnPage(newSavedMovies);
+      })
+      .catch((err) => {
+        console.log(`Ошибка при удалении карточки: ${err}`);
+      })
+  }
+
+  function handleFilterMovies(isFiltered) {
+    const filteredMovies = moviesOnPage.filter((movie) => movie.duration <= 40);
+    setMoviesOnPage(filteredMovies);
+    localStorage.setItem('movies', JSON.stringify(filteredMovies));
+    localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
+    console.log(isFiltered);
+  }
+
+  function handleUnfilterMovies(isFiltered) {
+    setMoviesOnPage(movies);
+    localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
+    localStorage.setItem('movies', JSON.stringify(movies));
+    console.log(isFiltered);
+  }
+
+  function handleFilterSavedMovies() {
+    const filteredMovies = savedMovies.filter((movie) => movie.duration <= 40);
+    setSavedMoviesOnPage(filteredMovies);
+  }
+
+  function handleUnfilterSavedMovies() {
+    setSavedMoviesOnPage(savedMovies);
+  }
+
+  function handleSearchMovies(searchText) {
+    const filteredMovies = movies.filter((movie) => movie.nameRU.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+    setMoviesOnPage(filteredMovies);
+    console.log(filteredMovies);
+    console.log(movies);
+    localStorage.setItem('movies', JSON.stringify(filteredMovies));
+    localStorage.setItem('searchText', JSON.stringify(searchText));
+  }
+
+  function handleSearchSavedMovies(searchText) {
+    const filteredMovies = savedMovies.filter((movie) => movie.nameRU.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+    setSavedMoviesOnPage(filteredMovies);
   }
 
   return (
-    <div className="App">
-      <Routes>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App" >
+        <Routes>
 
-        <Route exact path="/"
-          element={<
-            Main 
-            isLoggedInn={isLoggedInn}
-            />}
-        />
+          <Route exact path="/"
+            element={
+              <Main
+                isLoggedInn={isLoggedInn}
+              />
+            } />
 
-        <Route path="/movies"
-          element={
-            <Movies
-              movies={movies}
-              handleSearchMovies={handleSearchMovies}
-            />
-          }
-        />
+          <Route path="/movies"
+            element={
+              <ProtectedRoute loggedIn={localStorage.getItem('jwt')} >
+                <Movies
+                  movies={moviesOnPage}
+                  saveMovie={saveMovie}
+                  deleteMovie={deleteMovie}
+                  savedMovies={savedMovies}
+                  handleFilterMovies={handleFilterMovies}
+                  handleUnfilterMovies={handleUnfilterMovies}
+                  handleSearchMovies={handleSearchMovies}
+                  isLoading={isLoading}
+                />
+              </ProtectedRoute>
+            } />
 
-        <Route path="/saved-movies"
+          <Route path="/saved-movies"
+            element={
+              <ProtectedRoute loggedIn={localStorage.getItem('jwt')} >
+                <SavedMovies
+                  isSaved={true}
+                  savedMovies={savedMoviesOnPage}
+                  deleteMovie={deleteMovie}
+                  handleFilterMovies={handleFilterSavedMovies}
+                  handleUnfilterMovies={handleUnfilterSavedMovies}
+                  handleSearchSavedMovies={handleSearchSavedMovies}
+                  isLoading={isLoading}
+                />
+              </ProtectedRoute >
+            } />
 
-          element={
-            <SavedMovies
-              savedMovies={savedMovies}
-              isSaved={true}
-            />
-          }
-        />
+          <Route path="/profile"
+            element={
 
-        <Route path="/signup"
-          element={
-            <Register
-              handleRegister={handleRegister}
-            />}
-        />
+              <ProtectedRoute loggedIn={localStorage.getItem('jwt')} >
+                <Profile
+                  signOut={signOut}
+                  changeUserInfo={changeUserInfo}
+                />
+              </ProtectedRoute >
+            } />
 
-        <Route path="/signin"
-          element={
-            <Login
-              handleLogin={handleLogin}
-            />}
-        />
+          <Route path="/signup"
+            element={
+              <Register
+                handleRegister={handleRegister}
+              />}
+          />
 
-        <Route path="/profile"
-          element={<Profile />}
-        />
+          <Route path="/signin"
+            element={
+              <Login
+                handleLogin={handleLogin}
+              />}
+          />
 
-        <Route path="*"
-          element={<NotFound />}
-        />
+          <Route path="*"
+            element={<NotFound />}
+          />
 
-      </Routes>
-    </div >
+        </Routes>
+      </div >
+    </ CurrentUserContext.Provider >
   );
 }
 
