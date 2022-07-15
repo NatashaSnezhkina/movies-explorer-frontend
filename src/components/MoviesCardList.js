@@ -7,7 +7,6 @@ function MoviesCardList({
   isSaved,
   saveMovie,
   deleteMovie,
-  savedMovies,
   isLoading
 }) {
 
@@ -24,7 +23,6 @@ function MoviesCardList({
             isSaved={isSaved}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
-            savedMovies={savedMovies}
           />
         );
       })

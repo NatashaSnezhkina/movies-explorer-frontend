@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function MoviesCard({
   isSaved,
   movie,
   saveMovie,
   deleteMovie,
-  savedMovies
 }) {
-  // console.log(movie)
 
+  const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
   const movieDuration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}м`;
   const likedMovieFind = savedMovies.find((item) => item.nameRU === movie.nameRU);
 
@@ -17,8 +16,6 @@ function MoviesCard({
   function likeCard(e) {
     if (isLiked) {
       const searchMovie = savedMovies.find((item) => item.nameRU === movie.nameRU);
-      // console.log(searchMovie);
-      // console.log(savedMovies);
       deleteMovie(searchMovie._id);
       setIsLiked(false);
     } else {

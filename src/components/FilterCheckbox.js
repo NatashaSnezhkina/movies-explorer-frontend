@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 function FilterCheckbox({
   handleFilterMovies,
-  handleUnfilterMovies
+  handleUnfilterMovies,
+  isSaved
 }) {
 
-  // const [isClicked, setIsClicked] = useState(false);
   const [isFiltered, setIsFiltered] = useState(false);
 
   function filterFilm() {
@@ -19,10 +19,13 @@ function FilterCheckbox({
   }
 
   useEffect(() => {
-    const checkboxStatus = JSON.parse(localStorage.getItem('filterCheckbox'));
-    console.log(checkboxStatus);
-    setIsFiltered(checkboxStatus);
-  }, [])
+    if (isSaved) {
+      setIsFiltered(false);
+    } else {
+      const checkboxStatus = JSON.parse(localStorage.getItem('filterCheckbox'));
+      setIsFiltered(checkboxStatus);
+    }
+  })
 
   return (
     <div className='filter-checkbox'>

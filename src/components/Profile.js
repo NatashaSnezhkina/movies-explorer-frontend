@@ -3,27 +3,47 @@ import { Link } from 'react-router-dom';
 import Header from './Header';
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 import { CurrentUserContext } from '../context/CurrentUserContext';
+import validator from 'validator';
 
 function Profile({
   signOut,
-  changeUserInfo
+  changeUserInfo,
+  isUpdatedSuccessfully,
+  isUpdated,
+  setIsUpdated
 }) {
-  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
+  const [emailError, setEmailError] = useState('');
+  const { values, handleChange, errors, isValid, setIsValid, resetForm, setValues } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
 
   function handleChangeInput(e) {
     handleChange(e);
+    setIsUpdated(false);
+
+  }
+
+  function handleEmailChange(e) {
+    handleChange(e);
+    setIsUpdated(false);
+
+    var email = e.target.value;
+    if (validator.isEmail(email)) {
+      setEmailError('')
+    } else {
+      setEmailError('Введите корректный email')
+    }
   }
 
   function editProfile(e) {
     e.preventDefault();
     changeUserInfo({ email: values.email, name: values.name });
-    resetForm()
+    resetForm();
   }
 
   useEffect(() => {
-    setValues(currentUser)
-  }, [currentUser, setValues])
+    setValues(currentUser);
+    setIsValid(false);
+  }, [currentUser, setValues, setIsValid])
 
   return (
     <>
@@ -51,18 +71,25 @@ function Profile({
           <div className='profile__info'>
             <label className='profile__lable'>E-mail</label>
             <input className='profile__input'
+              id='userEmail'
+              type='email'
               name='email'
+              placeholder='Email'
               value={values.email || ''}
-              type='text'
-              onChange={handleChangeInput}
-              minLength="2"
               required
-            />
+              onChange={(e) => handleEmailChange(e)}>
+            </input>
           </div>
-          <span className='error'>{errors.email}</span>
-          <button className={`profile__button button ${isValid === true ? '' : 'profile__button_disable'}`}>
+          <span className='error'>{emailError}</span>
+          <button
+            className={`profile__button button ${!isValid ||
+              (values.name === currentUser.name &&
+                values.email === currentUser.email) ? 'profile__button_disable' : ''}`}
+            type="submit"
+          >
             Редактировать
           </button>
+          <span className='profile__updated-message'>{isUpdated ? isUpdatedSuccessfully===false ? 'При обновлении профиля произошла ошибка.' : 'Данные пользователя успешно обновлены!' : ''}</span>
         </form>
 
         <Link to="/signin"

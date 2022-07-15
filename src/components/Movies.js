@@ -5,19 +5,14 @@ import Footer from './Footer';
 import Header from './Header';
 
 function Movies({
-  // movies,
+  moviesOnPage,
   saveMovie,
   deleteMovie,
-  savedMovies,
   handleFilterMovies,
   handleUnfilterMovies,
   handleSearchMovies,
   isLoading
 }) {
-
-  const movies = JSON.parse(localStorage.getItem('movies'));
-
-  console.log(movies);
 
   const [numberOfMovies, setNumberOfMovies] = useState(() => {
     if (window.innerWidth > 1250) {
@@ -38,8 +33,6 @@ function Movies({
       return 2;
     }
   });
-
-  const moviesCardList = movies.slice(0, numberOfMovies);
 
   function addMoreMovies() {
     setNumberOfMovies(numberOfMovies + numberOfAddMovies);
@@ -62,6 +55,31 @@ function Movies({
     window.addEventListener('resize', screenChanging)
   })
 
+  // useEffect(() => {
+  //   setMovies
+  // })
+
+
+  // useEffect(() => {
+  //   const moviesApi = JSON.parse(localStorage.getItem('movies'));
+  //   const filteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
+  //   const isFiltered = JSON.parse(localStorage.getItem('filterCheckbox'));
+  
+  //   console.log(moviesApi);
+  //   console.log(filteredMovies);
+  //   if (isFiltered) {
+  //     console.log(filteredMovies);
+  //     setMovies(filteredMovies);
+  //   } else if (moviesApi) {
+  //     setMovies(moviesApi);
+  //   } else {
+  //     setMovies([]);
+  //   }
+  //   console.log(movies);
+  // }, []);
+
+  const moviesCardList = moviesOnPage.slice(0, numberOfMovies);
+
   return (
     <div>
       <Header
@@ -71,17 +89,17 @@ function Movies({
         handleFilterMovies={handleFilterMovies}
         handleUnfilterMovies={handleUnfilterMovies}
         handleSearchMovies={handleSearchMovies}
+        isSaved={false}
       />
       <MoviesCardList
         moviesCardList={moviesCardList}
         isSaved={false}
         saveMovie={saveMovie}
         deleteMovie={deleteMovie}
-        savedMovies={savedMovies}
         isLoading={isLoading}
       />
-      <div className={`${movies.length > 1
-        ? movies.length > numberOfMovies
+      <div className={`${moviesOnPage.length > 1
+        ? moviesOnPage.length > numberOfMovies
           ? 'more-button'
           : 'more-button_hide'
         : 'more-button_hide'}`}

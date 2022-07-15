@@ -14,3 +14,7 @@
 .navigation-popup__link:last-of-type {
   margin: 0;
 }
+
+.navigation-popup__link:focus {
+  text-decoration: solid 2px black;
+}

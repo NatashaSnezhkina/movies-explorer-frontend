@@ -5,7 +5,8 @@ import FilterCheckbox from './FilterCheckbox';
 function SearchForm({
   handleFilterMovies,
   handleUnfilterMovies,
-  handleSearchMovies
+  handleSearchMovies,
+  isSaved
 }) {
 
   const [inputText, setInputText] = useState('');
@@ -13,9 +14,11 @@ function SearchForm({
 
   useEffect(() => {
     const searchText = JSON.parse(localStorage.getItem('searchText'));
-    console.log(searchText);
-    if (searchText) {
+    // const searchTextSaved = JSON.parse(localStorage.getItem('searchTextSaved'));
+    if (isSaved === false) {
       setInputText(searchText);
+    } else if (isSaved === true) {
+      setInputText('');
     }
   }, [setInputText])
 
@@ -51,6 +54,7 @@ function SearchForm({
         <FilterCheckbox
           handleFilterMovies={handleFilterMovies}
           handleUnfilterMovies={handleUnfilterMovies}
+          isSaved={isSaved}
         />
 
       </div>

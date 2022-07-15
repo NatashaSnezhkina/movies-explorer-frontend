@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../images/logo.svg';
 import { useFormWithValidation } from '../hooks/useFormWithValidation';
+import validator from 'validator';
 
 function Register({
   handleRegister
 }) {
-
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const [emailError, setEmailError] = useState('');
+  const { values, handleChange, errors, isValid, setIsValid, resetForm } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,9 +20,20 @@ function Register({
     handleChange(e);
   }
 
+  function handleEmailChange(e) {
+    handleChange(e);
+
+    var email = e.target.value;
+    if (validator.isEmail(email)) {
+      setEmailError('')
+    } else {
+      setEmailError('Введите корректный email')
+    }
+  }
+
   return (
     <section className='register'>
-      <img className='logo logo_centered' alt='logo' src={logo}></img>
+      <Link to='/'><img className='logo logo_centered' alt='logo' src={logo}></img></Link>
       <h1 className='register__title'>Добро пожаловать!</h1>
       <form className='form' onSubmit={handleSubmit}>
 
@@ -40,20 +52,20 @@ function Register({
 
         <label className='form__label'>E-mail</label>
         <input className='form__input'
-          id='name'
+          id='userEmail'
           type='email'
           name='email'
-          value={values.email || ''}
-          onChange={handleChangeInput}
           placeholder='Email'
+          value={values.email || ''}
           required
-        />
-        <span className='error'>{errors.email}.</span>
+          onChange={(e) => handleEmailChange(e)}>
+        </input>
+        <span className='error'>{emailError}</span>
 
         <label className='form__label'>Пароль</label>
         <input className='form__input'
           id='password'
-          type='text'
+          type='password'
           name='password'
           value={values.password || ''}
           onChange={handleChangeInput}
@@ -63,7 +75,7 @@ function Register({
         />
         <span className='error'>{errors.password}</span>
 
-        <button className={`form__button ${isValid===true ? '' : 'form__button_disable'}`} disabled={!isValid}>Зарегистрироваться</button>
+        <button className={`form__button ${isValid === true ? '' : 'form__button_disable'}`} disabled={!isValid}>Зарегистрироваться</button>
       </form>
       <p className="form__subtitle">Уже зарегистрированы? <Link to='/signin' className='form__link' href="#">Войти</Link></p>
     </section>

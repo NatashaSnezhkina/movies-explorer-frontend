@@ -20,19 +20,8 @@ function Navigation({
   return (
     <>
       {
-        isLoggedIn === false
-          ?
-          <section className='navigation navigation_logged-out'>
-            <Link to="/signup" className='navigation__registration'>
-              Регистрация
-            </Link>
-
-            <Link to="/signin" className='navigation__enter'>
-              Войти
-            </Link>
-          </section >
-
-          : isNavigationMenu === true ?
+        isLoggedIn ?
+          window.innerWidth <= 760 ?
             <>
               <button className='button navigation__button' onClick={clickNavigationMenu}></button>
               <NavigationPopup
@@ -41,22 +30,36 @@ function Navigation({
               />
             </>
             :
-            <div div className='navigation'>
+            <div className='navigation'>
               <div className='navigation__movies'>
-                <Link to="/movies" className='navigation__films'>
+                <Link to="/movies"
+                  className='navigation__films'>
                   Фильмы
                 </Link>
 
-                <Link to="/saved-movies" className='navigation__saved-films'>
+                <Link to="/saved-movies"
+                  className='navigation__saved-films'>
                   Сохранённые фильмы
                 </Link>
               </div>
 
-              <Link to="/profile">
-                <button className='navigation__account-link'> Аккаунт</button>
+              <Link to="/profile"
+                className='navigation__account-link'>
+                Аккаунт
               </Link>
-
             </div>
+          :
+          <section className='navigation navigation_logged-out'>
+            <Link to="/signup"
+              className='navigation__registration'>
+              Регистрация
+            </Link>
+
+            <Link to="/signin"
+              className='navigation__enter'>
+              Войти
+            </Link>
+          </section >
       }
 
     </>

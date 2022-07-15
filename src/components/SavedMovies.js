@@ -14,6 +14,8 @@ function SavedMovies({
   isLoading
 }) {
 
+  console.log(savedMovies);
+
   return (
     <div>
       <Header
@@ -23,12 +25,13 @@ function SavedMovies({
         handleFilterMovies={handleFilterMovies}
         handleUnfilterMovies={handleUnfilterMovies}
         handleSearchMovies={handleSearchSavedMovies}
+        isSaved={true}
       />
       <MoviesCardList
         moviesCardList={savedMovies}
         isSaved={isSaved}
         deleteMovie={deleteMovie}
-        savedMovies={savedMovies}
+        // savedMovies={savedMovies}
         isLoading={isLoading}
       />
       <Footer />

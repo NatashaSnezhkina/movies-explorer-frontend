@@ -19,7 +19,7 @@ function Login({
 
   return (
     <section className='register'>
-      <img className='logo' alt='logo' src={logo}></img>
+      <Link to='/'><img className='logo' alt='logo' src={logo}></img></Link>
       <h1 className='register__title'>Рады видеть!</h1>
       <form className='form' onSubmit={handleSubmit}>
         <label className='form__label'>E-mail</label>
@@ -44,7 +44,7 @@ function Login({
           required
         />
         <span className='error'>{errors.password}</span>
-        <button className={`form__button login-button ${isValid===true ? '' : 'form__button_disable'}`} disabled={!isValid}>Войти</button>
+        <button className={`form__button login-button ${isValid === true ? '' : 'form__button_disable'}`} disabled={!isValid}>Войти</button>
       </form>
       <p className="form__subtitle">Ещё не зарегистрированы? <Link to='/signup' className='form__link' href="#">Регистрация</Link></p>
     </section>

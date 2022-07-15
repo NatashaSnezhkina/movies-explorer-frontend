@@ -98,6 +98,7 @@
 @import url(./blocks/profile/__line/profile__line.css);
 @import url(./blocks/profile/__link/profile__link.css);
 @import url(./blocks/profile/__title/profile__title.css);
+@import url(./blocks/profile/__updated-message/profile__updated-message.css);
 @import url(./blocks/promo/promo.css);
 @import url(./blocks/promo/__header/promo__header.css);
 @import url(./blocks/register/register.css);
