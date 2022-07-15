@@ -14,8 +14,6 @@ function SavedMovies({
   isLoading
 }) {
 
-  console.log(savedMovies);
-
   return (
     <div>
       <Header

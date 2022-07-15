@@ -19,12 +19,12 @@ function FilterCheckbox({
   }
 
   useEffect(() => {
-    if (isSaved) {
-      setIsFiltered(false);
-    } else {
+    console.log(isSaved)
+    if (!isSaved) {
+      // setIsFiltered(false);
       const checkboxStatus = JSON.parse(localStorage.getItem('filterCheckbox'));
       setIsFiltered(checkboxStatus);
-    }
+    } 
   })
 
   return (
