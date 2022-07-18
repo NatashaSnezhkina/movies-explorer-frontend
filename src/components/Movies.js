@@ -3,6 +3,7 @@ import SearchForm from './SearchForm';
 import MoviesCardList from './MoviesCardList';
 import Footer from './Footer';
 import Header from './Header';
+import Preloader from './Preloader';
 
 function Movies({
   moviesOnPage,
@@ -11,7 +12,8 @@ function Movies({
   handleFilterMovies,
   handleUnfilterMovies,
   handleSearchMovies,
-  isLoading
+  isLoading,
+  savedMovies
 }) {
 
   const [numberOfMovies, setNumberOfMovies] = useState(() => {
@@ -55,29 +57,6 @@ function Movies({
     window.addEventListener('resize', screenChanging)
   })
 
-  // useEffect(() => {
-  //   setMovies
-  // })
-
-
-  // useEffect(() => {
-  //   const moviesApi = JSON.parse(localStorage.getItem('movies'));
-  //   const filteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
-  //   const isFiltered = JSON.parse(localStorage.getItem('filterCheckbox'));
-  
-  //   console.log(moviesApi);
-  //   console.log(filteredMovies);
-  //   if (isFiltered) {
-  //     console.log(filteredMovies);
-  //     setMovies(filteredMovies);
-  //   } else if (moviesApi) {
-  //     setMovies(moviesApi);
-  //   } else {
-  //     setMovies([]);
-  //   }
-  //   console.log(movies);
-  // }, []);
-
   const moviesCardList = moviesOnPage.slice(0, numberOfMovies);
 
   return (
@@ -91,13 +70,20 @@ function Movies({
         handleSearchMovies={handleSearchMovies}
         isSaved={false}
       />
-      <MoviesCardList
-        moviesCardList={moviesCardList}
-        isSaved={false}
-        saveMovie={saveMovie}
-        deleteMovie={deleteMovie}
-        isLoading={isLoading}
-      />
+      {
+        isLoading === true ?
+          <Preloader
+            isLoading={isLoading}
+          />
+          :
+          <MoviesCardList
+            moviesCardList={moviesCardList}
+            isSaved={false}
+            saveMovie={saveMovie}
+            deleteMovie={deleteMovie}
+            savedMovies={savedMovies}
+          />
+      }
       <div className={`${moviesOnPage.length > 1
         ? moviesOnPage.length > numberOfMovies
           ? 'more-button'

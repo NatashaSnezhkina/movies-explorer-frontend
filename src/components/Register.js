@@ -25,11 +25,23 @@ function Register({
 
     var email = e.target.value;
     if (validator.isEmail(email)) {
-      setEmailError('')
+      setEmailError('');
+      // setIsValid(true);
     } else {
-      setEmailError('Введите корректный email')
+      setEmailError('Введите корректный email');
+      setIsValid(false);
     }
   }
+
+  //   function handleEmailChange(e) {
+  //     handleChange(e);
+
+  //     e.target.value.match(
+  //         /[^@\s]+@[^@\s]+\.[^@\s]+/
+  //     )
+  //         ? setIsValid(true)
+  //         : setIsValid(false);
+  // }
 
   return (
     <section className='register'>
@@ -59,6 +71,8 @@ function Register({
           value={values.email || ''}
           required
           onChange={(e) => handleEmailChange(e)}>
+          {/* onChange={handleEmailChange}> */}
+
         </input>
         <span className='error'>{emailError}</span>
 

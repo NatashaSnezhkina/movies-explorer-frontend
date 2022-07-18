@@ -11,8 +11,9 @@ function SavedMovies({
   handleFilterMovies,
   handleUnfilterMovies,
   handleSearchSavedMovies,
-  isLoading
 }) {
+
+  // console.log(savedMovies);
 
   return (
     <div>
@@ -25,13 +26,11 @@ function SavedMovies({
         handleSearchMovies={handleSearchSavedMovies}
         isSaved={true}
       />
-      <MoviesCardList
-        moviesCardList={savedMovies}
-        isSaved={isSaved}
-        deleteMovie={deleteMovie}
-        // savedMovies={savedMovies}
-        isLoading={isLoading}
-      />
+          <MoviesCardList
+            moviesCardList={savedMovies}
+            isSaved={isSaved}
+            deleteMovie={deleteMovie}
+          />
       <Footer />
     </div>
   )

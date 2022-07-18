@@ -5,7 +5,10 @@ function MoviesCard({
   movie,
   saveMovie,
   deleteMovie,
+  // savedMovies
 }) {
+
+  // console.log(savedMovies);
 
   const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
   const movieDuration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}м`;
@@ -48,10 +51,10 @@ function MoviesCard({
             </button>
         }
       </div>
-      <img className='card__image'
+      <a href={movie.trailerLink} target="_blank"><img className='card__image'
         src={isSaved === false ? `https://api.nomoreparties.co${movie.image.url}` : movie.image}
         alt={movie.nameRU}
-      ></img>
+      ></img></a>
     </div >
   );
 }

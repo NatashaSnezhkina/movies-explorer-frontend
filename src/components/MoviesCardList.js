@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import MoviesCard from './MoviesCard';
 import Preloader from './Preloader';
 
@@ -7,14 +7,11 @@ function MoviesCardList({
   isSaved,
   saveMovie,
   deleteMovie,
-  isLoading
+  savedMovies
 }) {
 
   return (
     <div className='card-list'>
-      <Preloader 
-        isLoading={isLoading}
-      />
       {moviesCardList.map((movie) => {
         return (
           <MoviesCard
@@ -23,6 +20,7 @@ function MoviesCardList({
             isSaved={isSaved}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
+            saveMovies={savedMovies}
           />
         );
       })

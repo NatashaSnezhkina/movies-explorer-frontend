@@ -19,9 +19,7 @@ function FilterCheckbox({
   }
 
   useEffect(() => {
-    console.log(isSaved)
     if (!isSaved) {
-      // setIsFiltered(false);
       const checkboxStatus = JSON.parse(localStorage.getItem('filterCheckbox'));
       setIsFiltered(checkboxStatus);
     } 

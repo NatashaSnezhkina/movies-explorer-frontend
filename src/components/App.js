@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import '../App.css';
 import Main from './Main';
 import Movies from './Movies';
@@ -19,6 +19,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [moviesOnPage, setMoviesOnPage] = useState([]);
   const [isLoggedInn, setLoggedInn] = useState(false);
+  const [isLoggedInnSuccessfully, setLoggedInnSuccessfully] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesOnPage, setSavedMoviesOnPage] = useState([]);
@@ -64,30 +65,47 @@ function App() {
       mainApi.setToken(localStorage.getItem('jwt'));
       mainApi.getProfileInfo()
         .then((currentUser) => {
+          console.log(currentUser);
           setCurrentUser(currentUser);
+
+          mainApi.getSavedMovies()
+            .then((res) => {
+              const newSavedMovies = res.data.filter((m) => m.owner === currentUser._id);
+              localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
+              setSavedMoviesOnPage(newSavedMovies);
+              setSavedMovies(newSavedMovies);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+
         })
         .catch(err => {
           console.log(err);
         })
 
-      moviesApi.getMovies()
-        .then((res) => {
-          setMovies(res);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      // moviesApi.getMovies()
+      //   .then((res) => {
+      //     setMovies(res);
+      //     setIsLoading(false);
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //     setIsLoading(false);
+      //   })
 
-      mainApi.getSavedMovies()
-        .then((res) => {
-          const newSavedMovies = res.data.filter((m) => m.owner === currentUser._id);
-          localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
-          setSavedMoviesOnPage(newSavedMovies);
-          setSavedMovies(newSavedMovies);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      // mainApi.getSavedMovies()
+      //   .then((res) => {
+      //     const newSavedMovies = res.data.filter((m) => m.owner === currentUser._id);
+      //     console.log('User:', currentUser);
+      //     console.log('Movies:', newSavedMovies);
+      //     localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
+      //     setSavedMoviesOnPage(newSavedMovies);
+      //     setSavedMovies(newSavedMovies);
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   })
     }
   }, [isLoggedInn])
 
@@ -111,7 +129,20 @@ function App() {
           .then((res) => {
             mainApi.setToken(data.token);
             setLoggedInn(true);
+            setLoggedInnSuccessfully(true);
             navigate('/movies');
+            // mainApi.getSavedMovies()
+            //   .then((res) => {
+            //     const newSavedMovies = res.data.filter((m) => m.owner === currentUser._id);
+            //     console.log(newSavedMovies);
+            //     localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
+            //     setSavedMoviesOnPage(newSavedMovies);
+            //     setSavedMovies(newSavedMovies);
+            //   })
+            //   .catch(err => {
+            //     console.log(err);
+            //   })
+
             localStorage.setItem('movies', JSON.stringify([]));
             localStorage.setItem('searchText', JSON.stringify(''));
             localStorage.setItem('filterCheckbox', JSON.stringify(false));
@@ -120,13 +151,15 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setLoggedInnSuccessfully(false);
+        setLoggedInn(true);
         if (err.status === 400) {
           console.log('400 - не передано одно из полей');
         } else if (err.status === 401) {
           console.log('401 - пользователь с email не найден');
         }
       });
-    console.log(moviesOnPage);
+
   }
 
   function signOut() {
@@ -137,8 +170,9 @@ function App() {
     localStorage.removeItem('filterCheckbox');
     localStorage.removeItem('savedMovies');
     setMoviesOnPage([]);
+    setSavedMoviesOnPage([]);
+    // setCurrentUser({});
     setLoggedInn(false);
-    navigate('/login');
   }
 
   function changeUserInfo({ name, email }) {
@@ -211,11 +245,20 @@ function App() {
   }
 
   function handleSearchMovies(searchText) {
-    const filteredMovies = movies.filter((movie) => movie.nameRU.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
-    setMoviesOnPage(filteredMovies);
-    console.log(filteredMovies);
-    console.log(movies);
-    localStorage.setItem('movies', JSON.stringify(filteredMovies));
+    setIsLoading(true);
+    moviesApi.getMovies()
+      .then((res) => {
+        setMovies(res);
+        console.log(res);
+        setIsLoading(false);
+        const filteredMovies = res.filter((movie) => movie.nameRU.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+        setMoviesOnPage(filteredMovies);
+        localStorage.setItem('movies', JSON.stringify(filteredMovies));
+          })
+      .catch(err => {
+        console.log(err);
+        setIsLoading(false);
+      })
     localStorage.setItem('searchText', JSON.stringify(searchText));
     localStorage.setItem('filterCheckbox', JSON.stringify(false));
   }
@@ -228,8 +271,11 @@ function App() {
   }
 
   useEffect(() => {
+    // setMoviesOnPage([]);
     setIsUpdatedSuccessfully(false);
     setIsUpdated(false);
+    setLoggedInn(false);
+    setLoggedInnSuccessfully(false);
   }, [])
 
   return (
@@ -255,6 +301,7 @@ function App() {
                   handleUnfilterMovies={handleUnfilterMovies}
                   handleSearchMovies={handleSearchMovies}
                   isLoading={isLoading}
+                  savedMovies={savedMoviesOnPage}
                 />
               </ProtectedRoute>
             } />
@@ -269,7 +316,6 @@ function App() {
                   handleFilterMovies={handleFilterSavedMovies}
                   handleUnfilterMovies={handleUnfilterSavedMovies}
                   handleSearchSavedMovies={handleSearchSavedMovies}
-                  isLoading={isLoading}
                 />
               </ProtectedRoute >
             } />
@@ -290,16 +336,25 @@ function App() {
 
           <Route path="/signup"
             element={
-              <Register
-                handleRegister={handleRegister}
-              />}
+              isLoggedInn === true ?
+                <Navigate to='/' />
+                :
+                <Register
+                  handleRegister={handleRegister}
+                />}
           />
 
           <Route path="/signin"
             element={
-              <Login
-                handleLogin={handleLogin}
-              />}
+              isLoggedInn === true ?
+                <Navigate to='/' />
+                :
+                <Login
+                  handleLogin={handleLogin}
+                  isLoggedInn={isLoggedInn}
+                  setLoggedInn={setLoggedInn}
+                  isLoggedInnSuccessfully={isLoggedInnSuccessfully}
+                />}
           />
 
           <Route path="*"

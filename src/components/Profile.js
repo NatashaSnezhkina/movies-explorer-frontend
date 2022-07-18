@@ -28,9 +28,11 @@ function Profile({
 
     var email = e.target.value;
     if (validator.isEmail(email)) {
-      setEmailError('')
+      setEmailError('');
+      // setIsValid(true);
     } else {
-      setEmailError('Введите корректный email')
+      setEmailError('Введите корректный email');
+      setIsValid(false);
     }
   }
 
@@ -89,10 +91,10 @@ function Profile({
           >
             Редактировать
           </button>
-          <span className='profile__updated-message'>{isUpdated ? isUpdatedSuccessfully===false ? 'При обновлении профиля произошла ошибка.' : 'Данные пользователя успешно обновлены!' : ''}</span>
+          <span className='profile__updated-message'>{isUpdated ? isUpdatedSuccessfully === false ? 'При обновлении профиля произошла ошибка.' : 'Данные пользователя успешно обновлены!' : ''}</span>
         </form>
 
-        <Link to="/signin"
+        <Link to="/"
           className='profile__link'
           onClick={signOut}>
           Выйти из аккаунта

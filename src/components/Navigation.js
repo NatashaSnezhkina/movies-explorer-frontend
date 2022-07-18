@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NavigationPopup from './NavigationPopup';
 
 function Navigation({
   isLoggedIn,
-  isNavigationMenu,
 }) {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
   function clickNavigationMenu() {
     setIsMenuOpen(true);
@@ -17,11 +17,24 @@ function Navigation({
     setIsMenuOpen(false);
   }
 
+  function screenChanging() {
+    if (window.innerWidth <= 800) {
+      setIsBurgerMenuOpen(true)
+    } else {
+      setIsBurgerMenuOpen(false);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', screenChanging)
+  })
+
+
   return (
     <>
       {
         isLoggedIn ?
-          window.innerWidth <= 760 ?
+        isBurgerMenuOpen === true ?
             <>
               <button className='button navigation__button' onClick={clickNavigationMenu}></button>
               <NavigationPopup
