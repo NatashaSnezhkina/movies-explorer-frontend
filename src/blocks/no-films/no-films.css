@@ -1,0 +1,11 @@
+.no-films {
+  display: table;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  color: #000000;
+  text-align: center;
+  margin: 20px auto 0 auto;
+}

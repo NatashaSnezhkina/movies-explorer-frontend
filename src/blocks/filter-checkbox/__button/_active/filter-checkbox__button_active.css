@@ -1,0 +1,12 @@
+.filter-checkbox__button_active {
+  background-image: url(../../../../images/smalltumb.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 36px;
+  height: 20px;
+  border: none;
+  border-radius: 10px;
+  margin: 0 0 0 30px;
+  padding: 0;
+}

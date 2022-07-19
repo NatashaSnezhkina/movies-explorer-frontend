@@ -1,0 +1,11 @@
+.profile__updated-message {
+  display: table;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  margin: 20px auto 0 auto;
+  color: #FF004C;
+}

@@ -1,0 +1,19 @@
+.about__gray-part {
+  height: 36px;
+  background: #F2F2F2;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 36px;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+}
+
+@media screen and (max-width: 500px) {
+  .about__gray-part {
+    height: 35px;
+    font-size: 11px;
+  }
+}

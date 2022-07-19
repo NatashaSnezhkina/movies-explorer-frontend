@@ -1,0 +1,17 @@
+.techs__item {
+  background-color: #E8E8E8;
+  border-radius: 10px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 60px;
+  text-align: center;
+  color: #000000;
+}
+
+@media screen and (max-width: 500px) {
+  .techs__item {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,4 @@
+.about__timeline-part {
+  display: flex;
+  flex-direction: column;
+}
