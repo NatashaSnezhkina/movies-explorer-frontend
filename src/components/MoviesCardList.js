@@ -12,18 +12,19 @@ function MoviesCardList({
 
   return (
     <div className='card-list'>
-      {moviesCardList.map((movie) => {
-        return (
-          <MoviesCard
-            key={movie.id || movie.movieId}
-            movie={movie}
-            isSaved={isSaved}
-            saveMovie={saveMovie}
-            deleteMovie={deleteMovie}
-            saveMovies={savedMovies}
-          />
-        );
-      })
+      {
+        moviesCardList.map((movie) => {
+          return (
+            <MoviesCard
+              key={movie.id || movie.movieId}
+              movie={movie}
+              isSaved={isSaved}
+              saveMovie={saveMovie}
+              deleteMovie={deleteMovie}
+              saveMovies={savedMovies}
+            />
+          );
+        })
       }
     </div>
   )

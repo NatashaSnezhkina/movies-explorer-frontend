@@ -78,6 +78,7 @@
 @import url(./blocks/navtab/navtab.css);
 @import url(./blocks/navtab/__element/navtab__element.css);
 @import url(./blocks/navtab/__info/navtab__info.css);
+@import url(./blocks/no-films/no-films.css);
 @import url(./blocks/not-found/not-found.css);
 @import url(./blocks/not-found/__link/not-found__link.css);
 @import url(./blocks/not-found/__subtitle/not-found__subtitle.css);

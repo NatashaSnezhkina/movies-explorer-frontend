@@ -11,6 +11,7 @@ function SavedMovies({
   handleFilterMovies,
   handleUnfilterMovies,
   handleSearchSavedMovies,
+  isNotFound
 }) {
 
   // console.log(savedMovies);
@@ -26,11 +27,15 @@ function SavedMovies({
         handleSearchMovies={handleSearchSavedMovies}
         isSaved={true}
       />
+      {
+        !isNotFound ?
           <MoviesCardList
             moviesCardList={savedMovies}
             isSaved={isSaved}
             deleteMovie={deleteMovie}
           />
+          : <span className='no-films'>Ничего не найдено</span>
+      }
       <Footer />
     </div>
   )

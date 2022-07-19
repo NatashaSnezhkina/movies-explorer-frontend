@@ -8,7 +8,8 @@ function Login({
   handleLogin,
   isLoggedInn,
   setLoggedInn,
-  isLoggedInnSuccessfully
+  isLoggedInnSuccessfully,
+  loginError
 }) {
   const { values, handleChange, errors, isValid, setIsValid, resetForm } = useFormWithValidation();
   const [emailError, setEmailError] = useState('');
@@ -65,9 +66,9 @@ function Login({
         />
         <span className='error'>{errors.password}</span>
         <button className={`form__button login-button ${isValid === true ? '' : 'form__button_disable'}`} disabled={!isValid}>Войти</button>
+        <span className='profile__updated-message'>{loginError ? 'Введен неправильный email или пароль.' : ''}</span>
       </form>
       <p className="form__subtitle">Ещё не зарегистрированы? <Link to='/signup' className='form__link' href="#">Регистрация</Link></p>
-      <span className='profile__updated-message'>{isLoggedInn ? isLoggedInnSuccessfully === false ? 'При обновлении профиля произошла ошибка.' : '' : ''}</span>
     </section>
   )
 }

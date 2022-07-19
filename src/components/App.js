@@ -26,6 +26,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
   const [isUpdatedSuccessfully, setIsUpdatedSuccessfully] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
+  const [isNotFoundInSaved, setIsNotFoundInSaved] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,7 +69,6 @@ function App() {
       mainApi.setToken(localStorage.getItem('jwt'));
       mainApi.getProfileInfo()
         .then((currentUser) => {
-          console.log(currentUser);
           setCurrentUser(currentUser);
 
           mainApi.getSavedMovies()
@@ -123,8 +126,10 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
+    console.log({ email, password });
     Auth.authorize({ email, password })
       .then((data) => {
+        console.log('authorized');
         Auth.getContent(data.token)
           .then((res) => {
             mainApi.setToken(data.token);
@@ -152,7 +157,8 @@ function App() {
       .catch((err) => {
         console.log(err);
         setLoggedInnSuccessfully(false);
-        setLoggedInn(true);
+        setLoggedInn(false);
+        setLoginError(true);
         if (err.status === 400) {
           console.log('400 - не передано одно из полей');
         } else if (err.status === 401) {
@@ -223,6 +229,11 @@ function App() {
     localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
     localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
     console.log(isFiltered);
+    if (filteredMovies.length > 0) {
+      setIsNotFound(false);
+    } else {
+      setIsNotFound(true);
+    }
   }
 
   function handleUnfilterMovies(isFiltered) {
@@ -231,17 +242,25 @@ function App() {
     localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
     localStorage.setItem('movies', JSON.stringify(moviesFromStorage));
     console.log(isFiltered);
+    setIsNotFound(false);
   }
 
   function handleFilterSavedMovies(isFiltered) {
     const filteredMovies = savedMovies.filter((movie) => movie.duration <= 40);
     setSavedMoviesOnPage(filteredMovies);
     localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
+    if (filteredMovies.length > 0) {
+      setIsNotFoundInSaved(false);
+    } else {
+      setIsNotFoundInSaved(true);
+    }
+
   }
 
   function handleUnfilterSavedMovies(isFiltered) {
     setSavedMoviesOnPage(savedMovies);
     localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
+    setIsNotFoundInSaved(false);
   }
 
   function handleSearchMovies(searchText) {
@@ -254,7 +273,12 @@ function App() {
         const filteredMovies = res.filter((movie) => movie.nameRU.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
         setMoviesOnPage(filteredMovies);
         localStorage.setItem('movies', JSON.stringify(filteredMovies));
-          })
+        if (filteredMovies.length > 0) {
+          setIsNotFound(false);
+        } else {
+          setIsNotFound(true);
+        }
+      })
       .catch(err => {
         console.log(err);
         setIsLoading(false);
@@ -268,6 +292,11 @@ function App() {
     console.log(filteredMovies);
     console.log(savedMovies);
     setSavedMoviesOnPage(filteredMovies);
+    if (filteredMovies.length > 0) {
+      setIsNotFoundInSaved(false);
+    } else {
+      setIsNotFoundInSaved(true);
+    }
   }
 
   useEffect(() => {
@@ -302,6 +331,7 @@ function App() {
                   handleSearchMovies={handleSearchMovies}
                   isLoading={isLoading}
                   savedMovies={savedMoviesOnPage}
+                  isNotFound={isNotFound}
                 />
               </ProtectedRoute>
             } />
@@ -310,6 +340,7 @@ function App() {
             element={
               <ProtectedRoute loggedIn={localStorage.getItem('jwt')} >
                 <SavedMovies
+                  isNotFound={isNotFoundInSaved}
                   isSaved={true}
                   savedMovies={savedMoviesOnPage}
                   deleteMovie={deleteMovie}
@@ -354,6 +385,7 @@ function App() {
                   isLoggedInn={isLoggedInn}
                   setLoggedInn={setLoggedInn}
                   isLoggedInnSuccessfully={isLoggedInnSuccessfully}
+                  loginError={loginError}
                 />}
           />
 

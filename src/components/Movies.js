@@ -13,8 +13,11 @@ function Movies({
   handleUnfilterMovies,
   handleSearchMovies,
   isLoading,
-  savedMovies
+  savedMovies,
+  isNotFound
 }) {
+
+  console.log(isNotFound)
 
   const [numberOfMovies, setNumberOfMovies] = useState(() => {
     if (window.innerWidth > 1250) {
@@ -76,13 +79,15 @@ function Movies({
             isLoading={isLoading}
           />
           :
-          <MoviesCardList
-            moviesCardList={moviesCardList}
-            isSaved={false}
-            saveMovie={saveMovie}
-            deleteMovie={deleteMovie}
-            savedMovies={savedMovies}
-          />
+          !isNotFound ?
+            <MoviesCardList
+              moviesCardList={moviesCardList}
+              isSaved={false}
+              saveMovie={saveMovie}
+              deleteMovie={deleteMovie}
+              savedMovies={savedMovies}
+            />
+            : <span className='no-films'>Ничего не найдено</span>
       }
       <div className={`${moviesOnPage.length > 1
         ? moviesOnPage.length > numberOfMovies
