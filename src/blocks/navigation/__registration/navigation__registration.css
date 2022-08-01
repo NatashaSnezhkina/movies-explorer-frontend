@@ -1,0 +1,17 @@
+.navigation__registration {
+  all: unset;
+  color:  #000000;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  align-self: center;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .navigation__registration {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,31 @@
+.footer__link {
+  text-decoration: none;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: right;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__link:nth-last-of-type(2) {
+  margin: 0 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .footer__link {
+    text-align: center;
+    margin: 0 0 12px 0;
+  }
+
+  .footer__link:nth-last-of-type(2) {
+    margin: 0 0 12px 0;
+  }
+  .footer__link:nth-last-of-type(1) {
+    margin: 0 0 30px 0;
+  }
+
+}

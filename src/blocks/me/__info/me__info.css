@@ -1,0 +1,17 @@
+.me__info {
+  display: flex;
+  flex-direction: row;
+  column-gap: 270px;
+}
+
+@media screen and (max-width: 1000px) {
+  .me__info {
+    column-gap: 49px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .me__info {
+    flex-direction: column-reverse;
+  }
+}

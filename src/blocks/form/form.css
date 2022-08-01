@@ -1,0 +1,11 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
+
+@media screen and (max-width: 500px) {
+  .form {
+    justify-content: center;
+  }
+}

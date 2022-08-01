@@ -1,0 +1,18 @@
+.techs__headline {
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  color: #000000;
+  margin: 0 0 26px 0;
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .techs__headline {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+  }
+}

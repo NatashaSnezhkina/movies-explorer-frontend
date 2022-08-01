@@ -1,0 +1,4 @@
+.navigation-popup__menu {
+  display: flex;
+  flex-direction: column;
+}

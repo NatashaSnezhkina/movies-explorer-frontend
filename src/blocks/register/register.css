@@ -1,0 +1,17 @@
+.register {
+  /* height: 100vh; */
+  max-width: 396px;
+  display: flex;
+  flex-direction: column;
+  padding: 70px 0;
+  margin: 0 auto;
+  background: #FAFAFA;
+}
+
+@media screen and (max-width: 500px) {
+  .register {
+    padding: 56px 30px 30px 30px;
+    justify-items: center;
+    margin: 0;
+  }
+}

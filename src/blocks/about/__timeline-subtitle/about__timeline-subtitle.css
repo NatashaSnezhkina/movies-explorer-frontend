@@ -1,0 +1,17 @@
+.about__timeline-subtitle {
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #A0A0A0;
+  margin: 14px 0 0 0;
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .about__timeline-subtitle {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

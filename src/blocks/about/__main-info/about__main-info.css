@@ -1,0 +1,15 @@
+.about__main-info {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 30px;
+  margin: 0 0 110px;
+}
+
+@media screen and (max-width: 650px) {
+  .about__main-info {
+    grid-template-columns: auto;
+    grid-template-rows: repeat(2, auto);
+    row-gap: 56px;
+    margin: 0 0 60px;
+  }
+}

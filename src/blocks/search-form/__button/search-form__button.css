@@ -1,0 +1,19 @@
+.search-form__button {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 17px;
+  cursor: pointer;
+  background: #3456F3;
+  background-image: url("../../../images/search.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 760px) {
+  .search-form__button {
+    margin: 0 20px 0 0;
+  }
+}
