@@ -8,7 +8,8 @@
 
 ## General
 
-This project allows people search movies and add them to their collection.
+This project allows people search movies and add them to their collection.  
+
 Functional: registration, login, edit profile, search of movies(in your collection and in general data), add/delete movies to/from your collection, filter short movies.
 
 ## Technologies
