@@ -5,7 +5,8 @@ import { useFormWithValidation } from '../hooks/useFormWithValidation';
 import validator from 'validator';
 
 function Register({
-  handleRegister
+  handleRegister,
+  registerError
 }) {
   const [emailError, setEmailError] = useState('');
   const { values, handleChange, errors, isValid, setIsValid, resetForm } = useFormWithValidation();
@@ -32,16 +33,6 @@ function Register({
       setIsValid(false);
     }
   }
-
-  //   function handleEmailChange(e) {
-  //     handleChange(e);
-
-  //     e.target.value.match(
-  //         /[^@\s]+@[^@\s]+\.[^@\s]+/
-  //     )
-  //         ? setIsValid(true)
-  //         : setIsValid(false);
-  // }
 
   return (
     <section className='register'>
@@ -71,7 +62,6 @@ function Register({
           value={values.email || ''}
           required
           onChange={(e) => handleEmailChange(e)}>
-          {/* onChange={handleEmailChange}> */}
 
         </input>
         <span className='error'>{emailError}</span>
@@ -90,6 +80,7 @@ function Register({
         <span className='error'>{errors.password}</span>
 
         <button className={`form__button ${isValid === true ? '' : 'form__button_disable'}`} disabled={!isValid}>Зарегистрироваться</button>
+        <span className='profile__updated-message'>{registerError ? 'Пользователь уже зарегистрирован.' : ''}</span>
       </form>
       <p className="form__subtitle">Уже зарегистрированы? <Link to='/signin' className='form__link' href="#">Войти</Link></p>
     </section>

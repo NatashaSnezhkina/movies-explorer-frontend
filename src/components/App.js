@@ -19,7 +19,6 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [moviesOnPage, setMoviesOnPage] = useState([]);
   const [isLoggedInn, setLoggedInn] = useState(false);
-  const [isLoggedInnSuccessfully, setLoggedInnSuccessfully] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesOnPage, setSavedMoviesOnPage] = useState([]);
@@ -27,6 +26,7 @@ function App() {
   const [isUpdated, setIsUpdated] = useState(false);
   const [isUpdatedSuccessfully, setIsUpdatedSuccessfully] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [registerError, setRegisterError] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
   const [isNotFoundInSaved, setIsNotFoundInSaved] = useState(false);
 
@@ -87,28 +87,6 @@ function App() {
           console.log(err);
         })
 
-      // moviesApi.getMovies()
-      //   .then((res) => {
-      //     setMovies(res);
-      //     setIsLoading(false);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //     setIsLoading(false);
-      //   })
-
-      // mainApi.getSavedMovies()
-      //   .then((res) => {
-      //     const newSavedMovies = res.data.filter((m) => m.owner === currentUser._id);
-      //     console.log('User:', currentUser);
-      //     console.log('Movies:', newSavedMovies);
-      //     localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
-      //     setSavedMoviesOnPage(newSavedMovies);
-      //     setSavedMovies(newSavedMovies);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   })
     }
   }, [isLoggedInn])
 
@@ -119,6 +97,7 @@ function App() {
         handleLogin({ email, password })
       })
       .catch((err) => {
+        setRegisterError(true);
         if (err.status === 400) {
           console.log('400 - некорректно заполнено одно из полей');
         }
@@ -126,28 +105,13 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
-    console.log({ email, password });
     Auth.authorize({ email, password })
       .then((data) => {
-        console.log('authorized');
         Auth.getContent(data.token)
           .then((res) => {
             mainApi.setToken(data.token);
             setLoggedInn(true);
-            setLoggedInnSuccessfully(true);
             navigate('/movies');
-            // mainApi.getSavedMovies()
-            //   .then((res) => {
-            //     const newSavedMovies = res.data.filter((m) => m.owner === currentUser._id);
-            //     console.log(newSavedMovies);
-            //     localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
-            //     setSavedMoviesOnPage(newSavedMovies);
-            //     setSavedMovies(newSavedMovies);
-            //   })
-            //   .catch(err => {
-            //     console.log(err);
-            //   })
-
             localStorage.setItem('movies', JSON.stringify([]));
             localStorage.setItem('searchText', JSON.stringify(''));
             localStorage.setItem('filterCheckbox', JSON.stringify(false));
@@ -156,7 +120,6 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setLoggedInnSuccessfully(false);
         setLoggedInn(false);
         setLoginError(true);
         if (err.status === 400) {
@@ -177,7 +140,6 @@ function App() {
     localStorage.removeItem('savedMovies');
     setMoviesOnPage([]);
     setSavedMoviesOnPage([]);
-    // setCurrentUser({});
     setLoggedInn(false);
   }
 
@@ -224,11 +186,9 @@ function App() {
 
   function handleFilterMovies(isFiltered) {
     const filteredMovies = moviesOnPage.filter((movie) => movie.duration <= 40);
-    console.log(moviesOnPage);
     setMoviesOnPage(filteredMovies);
     localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
     localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
-    console.log(isFiltered);
     if (filteredMovies.length > 0) {
       setIsNotFound(false);
     } else {
@@ -241,7 +201,6 @@ function App() {
     setMoviesOnPage(moviesFromStorage);
     localStorage.setItem('filterCheckbox', JSON.stringify(isFiltered));
     localStorage.setItem('movies', JSON.stringify(moviesFromStorage));
-    console.log(isFiltered);
     setIsNotFound(false);
   }
 
@@ -268,7 +227,6 @@ function App() {
     moviesApi.getMovies()
       .then((res) => {
         setMovies(res);
-        console.log(res);
         setIsLoading(false);
         const filteredMovies = res.filter((movie) => movie.nameRU.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
         setMoviesOnPage(filteredMovies);
@@ -289,8 +247,6 @@ function App() {
 
   function handleSearchSavedMovies(searchText) {
     const filteredMovies = savedMovies.filter((movie) => movie.nameRU.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
-    console.log(filteredMovies);
-    console.log(savedMovies);
     setSavedMoviesOnPage(filteredMovies);
     if (filteredMovies.length > 0) {
       setIsNotFoundInSaved(false);
@@ -300,11 +256,9 @@ function App() {
   }
 
   useEffect(() => {
-    // setMoviesOnPage([]);
     setIsUpdatedSuccessfully(false);
     setIsUpdated(false);
     setLoggedInn(false);
-    setLoggedInnSuccessfully(false);
   }, [])
 
   return (
@@ -372,6 +326,7 @@ function App() {
                 :
                 <Register
                   handleRegister={handleRegister}
+                  registerError={registerError}
                 />}
           />
 
@@ -382,9 +337,7 @@ function App() {
                 :
                 <Login
                   handleLogin={handleLogin}
-                  isLoggedInn={isLoggedInn}
                   setLoggedInn={setLoggedInn}
-                  isLoggedInnSuccessfully={isLoggedInnSuccessfully}
                   loginError={loginError}
                 />}
           />

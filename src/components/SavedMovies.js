@@ -14,8 +14,6 @@ function SavedMovies({
   isNotFound
 }) {
 
-  // console.log(savedMovies);
-
   return (
     <div>
       <Header

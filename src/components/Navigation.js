@@ -34,7 +34,7 @@ function Navigation({
     <>
       {
         isLoggedIn ?
-        isBurgerMenuOpen === true ?
+          isBurgerMenuOpen === true ?
             <>
               <button className='button navigation__button' onClick={clickNavigationMenu}></button>
               <NavigationPopup

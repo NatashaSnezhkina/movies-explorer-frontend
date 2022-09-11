@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import MoviesCard from './MoviesCard';
-import Preloader from './Preloader';
 
 function MoviesCardList({
   moviesCardList,
