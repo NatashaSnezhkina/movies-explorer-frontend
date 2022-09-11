@@ -17,8 +17,6 @@ function Movies({
   isNotFound
 }) {
 
-  console.log(isNotFound)
-
   const [numberOfMovies, setNumberOfMovies] = useState(() => {
     if (window.innerWidth > 1250) {
       return 12;

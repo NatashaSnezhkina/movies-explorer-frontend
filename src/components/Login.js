@@ -6,9 +6,7 @@ import validator from 'validator';
 
 function Login({
   handleLogin,
-  isLoggedInn,
   setLoggedInn,
-  isLoggedInnSuccessfully,
   loginError
 }) {
   const { values, handleChange, errors, isValid, setIsValid, resetForm } = useFormWithValidation();
@@ -26,7 +24,6 @@ function Login({
     var email = e.target.value;
     if (validator.isEmail(email)) {
       setEmailError('');
-      // setIsValid(true);
     } else {
       setEmailError('Введите корректный email');
       setIsValid(false);

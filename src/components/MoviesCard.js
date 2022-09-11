@@ -5,10 +5,7 @@ function MoviesCard({
   movie,
   saveMovie,
   deleteMovie,
-  // savedMovies
 }) {
-
-  // console.log(savedMovies);
 
   const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
   const movieDuration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}м`;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import FilterCheckbox from './FilterCheckbox';
-// import searchFilm from '../images/searchFilms.svg';
 
 function SearchForm({
   handleFilterMovies,
@@ -14,7 +13,6 @@ function SearchForm({
 
   useEffect(() => {
     const searchText = JSON.parse(localStorage.getItem('searchText'));
-    // const searchTextSaved = JSON.parse(localStorage.getItem('searchTextSaved'));
     if (isSaved === false) {
       setInputText(searchText);
     } else if (isSaved === true) {
@@ -28,10 +26,8 @@ function SearchForm({
   }
 
   function searchMovies(e) {
-    console.log(inputText);
     e.preventDefault();
     handleSearchMovies(inputText);
-    // setInputText('');
   }
 
   return (
