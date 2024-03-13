@@ -25,6 +25,3 @@ Functional: registration, login, edit profile, search of movies(in your collecti
 * CSS
 * React.js
 
-## Link
-
-https://diploma.natasha.snezh.nomoredomains.xyz
